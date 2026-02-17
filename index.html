@@ -6,6 +6,21 @@
     <title>Бахтияр | Портфолио</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @media (max-width: 768px) {
+    .tilt-card {
+        transform: none !important; /* Отключаем наклон на смартфонах */
+        transition: none !important;
+    }
+    .glare-container {
+        display: none; /* Блик на мобилках часто выглядит как лишнее пятно */
+    }
+    body {
+        overflow-y: auto; /* Разрешаем скролл на телефонах */
+        height: auto;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
         /* Плавное возвращение блоков в исходное состояние */
         .tilt-card {
             transition: transform 0.1s ease-out;
@@ -36,9 +51,9 @@
 }
     </style>
 </head>
-<body class="bg-gradient-to-br from-[#003d80] via-[#005bb5] to-[#007aff] min-h-screen flex items-center justify-center p-6">
+<body class="bg-gradient-to-br from-[#003d80] via-[#005bb5] to-[#007aff] min-h-screen flex items-center justify-center p-4 md:p-6">
 
-    <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl w-full perspective-1000">
+    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 max-w-6xl w-full">
         
         <div id="card-1" class="tilt-card bg-white/10 backdrop-blur-lg border border-white/20 p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-white w-full md:w-1/2">
             <h1 class="text-6xl font-extrabold mb-6 tracking-tight">Привет, я <span class="text-sky-300">Бахтияр</span></h1>
@@ -64,6 +79,10 @@
 const glares = document.querySelectorAll('.glare');
 
 document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth <= 768) return;
+
+    const x = e.clientX;
+    const y = e.clientY;
     const glareX = ((x / window.innerWidth) - 0.5) * 100;
     const glareY = ((y / window.innerHeight) - 0.5) * 100;
 
@@ -98,6 +117,7 @@ document.addEventListener('mouseleave', () => {
         }
     });
 });
+        
     </script>
 </body>
 </html>
