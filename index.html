@@ -13,6 +13,23 @@
         }
         /* Убираем стандартный скролл, чтобы не мешал магии */
         body { overflow: hidden; }
+        /* Контейнер для эффекта блика */
+.glare-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: inherit;
+}
+        /* Сам блик */
+.glare {
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+    transform: translate(0, 0); /* Будет меняться через JS */
+    will-change: transform;
+}
     </style>
 </head>
 <body class="bg-gradient-to-br from-[#003d80] via-[#005bb5] to-[#007aff] min-h-screen flex items-center justify-center p-6">
@@ -24,6 +41,7 @@
             <p class="text-xl opacity-90 leading-relaxed">Frontend-разработчик. Создаю современные цифровые решения с акцентом на эстетику и производительность.</p>
             <div class="mt-10 flex gap-4">
                 <div class="h-1.5 w-24 bg-sky-400 rounded-full shadow-[0_0_15px_rgba(56,189,248,0.6)]"></div>
+                <div class="glare-container"><div id="glare-1" class="glare"></div></div>
             </div>
         </div>
 
@@ -31,6 +49,7 @@
             <div class="w-84 h-[500px] bg-white/15 rounded-[2.5rem] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.4)] flex items-center justify-center overflow-hidden relative">
                 <span class="text-white/40 text-sm font-medium uppercase tracking-widest">Здесь будет твое фото</span>
                 <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent"></div>
+                <div class="glare-container"><div id="glare-2" class="glare"></div></div>
             </div>
         </div>
 
@@ -38,32 +57,39 @@
 
     <script>
         const cards = document.querySelectorAll('.tilt-card');
+const glares = document.querySelectorAll('.glare');
 
-        document.addEventListener('mousemove', (e) => {
-            // Координаты мыши
-            const x = e.clientX;
-            const y = e.clientY;
+document.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
 
-            // Центр экрана
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
+    const rotateX = (centerY - y) / 20; 
+    const rotateY = (x - centerX) / 20;
 
-            // Вычисляем отклонение (чем выше делитель, тем меньше угол наклона)
-            const rotateX = (centerY - y) / 25; 
-            const rotateY = (x - centerX) / 25;
+    // Смещение блика (инвертируем, чтобы свет "играл" на углах)
+    const glareX = (x - centerX) / 5;
+    const glareY = (y - centerY) / 5;
 
-            cards.forEach(card => {
-                // Применяем 3D поворот
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-        });
+    cards.forEach((card, index) => {
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        
+        // Двигаем блик для каждой карточки
+        if (glares[index]) {
+            glares[index].style.transform = `translate(${glareX}px, ${glareY}px)`;
+        }
+    });
+});
 
-        // Возврат в исходное положение, когда мышь уходит
-        document.addEventListener('mouseleave', () => {
-            cards.forEach(card => {
-                card.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            });
-        });
+document.addEventListener('mouseleave', () => {
+    cards.forEach((card, index) => {
+        card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        if (glares[index]) {
+            glares[index].style.transform = `translate(0, 0)`;
+        }
+    });
+});
     </script>
 </body>
 </html>
