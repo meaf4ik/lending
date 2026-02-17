@@ -19,7 +19,14 @@ body {
     align-items: center;
     justify-content: center;
     /* Убираем синее выделение при нажатии на мобилках */
-    -webkit-tap-highlight-color: transparent; 
+    -webkit-tap-highlight-color: transparent;
+
+    /* Настройки фона */
+    background-image: url('./assets/img/background.png');
+    background-repeat: repeat; /* Картинка будет бесконечно повторяться во все стороны */
+    background-size: auto; /* Оставляем оригинальный размер для четкости линий */
+    background-attachment: fixed; /* Фото стоит на месте, а контент едет сверху (эффект параллакса) */
+    background-position: center;
 }
 
 /* 2. Стили только для ПК (ширина больше 1024px) */
@@ -72,7 +79,7 @@ body {
     will-change: transform;
     </style>
 </head>
-<body class="bg-gradient-to-br from-[#003d80] via-[#005bb5] to-[#007aff] min-h-screen flex items-center justify-center p-4 md:p-6">
+<body class="min-h-screen flex items-center justify-center p-4 md:p-6">
 
     <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 max-w-6xl w-full">
         
