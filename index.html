@@ -3,159 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бахтияр | Портфолио</title>
+    <title>Бахтияр | Frontend Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * { box-sizing: border-box; }
-        body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #050b18; /* Глубокий темный цвет */
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* Создаем эффект объемных светящихся туманностей */
-body::before, body::after {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: -1;
-    opacity: 0.4;
-    animation: float-bg 15s ease-in-out infinite;
-}
-
-body::before {
-    background: #0ea5e9; /* Голубой свет */
-    top: -10%;
-    left: -10%;
-}
-
-body::after {
-    background: #6366f1; /* Индиго свет */
-    bottom: -10%;
-    right: -10%;
-    animation-delay: -7s;
-}
-
-@keyframes float-bg {
-    0%, 100% { transform: translate(0, 0); }
-    33% { transform: translate(100px, 50px); }
-    66% { transform: translate(-50px, 100px); }
-}
-
-        /* Чтобы фото плавно парило (эффект левитации) */
-        .levitation {
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @media (max-width: 1024px) {
-            body { height: auto; padding: 100px 20px 40px; }
-            .levitation { animation: none; } /* Отключаем на мобилках для стабильности */
-        }
-
-/* 2. Анимация блика на кнопке */
-    @keyframes shine {
-        0% { left: -100%; }
-        20% { left: 100%; }
-        100% { left: 100%; }
-    }
-
-    .btn-shine {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .btn-shine::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 50%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        transform: skewX(-20deg);
-        animation: shine 4s infinite;
-    }
-
-    /* 3. Легкий подъем всего блока при наведении */
-    .main-container {
-        transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s;
-    }
-
-    .main-container:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 60px 120px rgba(0,0,0,0.6);
-    }
         
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #050b18; 
+            overflow-x: hidden;
+            position: relative;
+            font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+        }
+
+        /* 1. Анимированные сферы (3D фон без картинок) */
+        body::before, body::after {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.3;
+            animation: float-bg 15s ease-in-out infinite;
+        }
+        body::before { background: #0ea5e9; top: -10%; left: -10%; }
+        body::after { background: #6366f1; bottom: -10%; right: -10%; animation-delay: -7s; }
+
+        @keyframes float-bg {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(80px, 50px); }
+        }
+
+        /* 2. Левитация фото (эффект погружения) */
+        .levitation { animation: float 4s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        /* 3. Блик на кнопке (Shine Effect) */
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            animation: shine 4s infinite;
+        }
+
+        /* 4. Анимация появления при входе */
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { opacity: 0; animation: reveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+
+        /* 5. Интерактив при наведении на всю карточку */
+        .main-container {
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .main-container:hover { 
+            transform: translateY(-8px);
+        }
+
+        /* Адаптация под мобильные устройства */
+        @media (max-width: 1024px) {
+            body { height: auto; padding: 100px 20px 60px; }
+            .levitation { animation: none; transform: rotate(0deg); }
+            .main-container:hover { transform: none; }
+        }
     </style>
 </head>
 <body class="text-white">
 
-    <div class="fixed inset-0 z-[-1] opacity-20" 
-     style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(circle at center, black, transparent 80%);">
-</div>
+    <div class="fixed inset-0 z-[-1] opacity-[0.12] pointer-events-none" 
+         style="background-image: linear-gradient(to right, #ffffff 1px, transparent 1px), 
+                linear-gradient(to bottom, #ffffff 1px, transparent 1px); 
+                background-size: 50px 50px;
+                mask-image: radial-gradient(circle at center, black, transparent 90%);">
+    </div>
 
-    <div class="main-container relative w-full max-w-5xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-[3rem] p-8 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center gap-10">
+    <div class="main-container reveal relative w-full max-w-5xl bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[3.5rem] p-8 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center gap-12">
         
-        <div class="w-full md:w-1/2 z-10">
-            <h1 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-sky-300">
+        <div class="w-full md:w-1/2 z-10 reveal delay-1">
+            <h1 class="text-6xl md:text-8xl font-black mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-sky-400">
                 БАХТИЯР
             </h1>
-            <p class="text-sky-400 text-2xl font-bold mb-8 uppercase tracking-[0.2em]">
+            <p class="text-sky-400 text-2xl font-bold mb-8 uppercase tracking-[0.3em]">
                 Frontend Developer
             </p>
             
-            <div class="space-y-4 mb-10 opacity-90">
-                <div class="flex items-center gap-4">
-                    <span class="w-12 h-[2px] bg-sky-500"></span>
-                    <p class="text-lg">Clean Code & Modern Design</p>
-                </div>
-                <p class="text-white/70 max-w-sm leading-relaxed">
-                    Специализируюсь на создании высокопроизводительных интерфейсов с эффектом погружения.
-                </p>
-            </div>
+            <p class="text-lg opacity-70 leading-relaxed max-w-md mb-12">
+                Создаю цифровые интерфейсы нового поколения. Эстетика стекла, скорость и безупречный код.
+            </p>
 
-             <div class="grid grid-cols-2 gap-4 text-sm font-medium border-t border-white/10 pt-8">
-                <div><span class="text-sky-400">STACK:</span> HTML, CSS, JS</div>
-                <div><span class="text-sky-400">UI:</span> Tailwind, Glassmorphism</div>
-                <div><span class="text-sky-400">TOOLS:</span> Git, GitHub</div>
-                <div><span class="text-sky-400">DEV:</span> VS Code, Vite</div>
+            <div class="grid grid-cols-2 gap-y-4 text-[11px] font-mono border-t border-white/10 pt-8 opacity-50 uppercase tracking-widest">
+                <div><span class="text-sky-400 mr-2">●</span> Core: HTML / CSS / JS</div>
+                <div><span class="text-sky-400 mr-2">●</span> Style: Tailwind / Glass</div>
+                <div><span class="text-sky-400 mr-2">●</span> Repo: Git / GitHub</div>
+                <div><span class="text-sky-400 mr-2">●</span> Build: Vite / Vercel</div>
             </div>
         </div>
 
-        <div class="w-full md:w-1/2 relative flex flex-col items-center">
+        <div class="w-full md:w-1/2 relative flex flex-col items-center reveal delay-2">
             
-            <div class="relative z-30 md:absolute md:top-[-180px] w-[300px] md:w-[420px] levitation">
-                <img src="./assest/img/moyofoto.webp" 
+            <div class="relative z-30 md:absolute md:top-[-220px] w-[280px] md:w-[440px] levitation">
+                <img src="./assest/img/moyofoto.jpg" 
                      alt="Бахтияр" 
-                     class="w-full rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.6)] border-4 border-white/20 rotate-[2deg] grayscale hover:grayscale-0 transition-all duration-500">
+                     loading="eager"
+                     class="w-full rounded-[2.5rem] shadow-2xl border-4 border-white/30 grayscale hover:grayscale-0 transition-all duration-700 object-cover aspect-[3/4]">
                 
-                <div class="absolute inset-0 bg-sky-500/20 blur-[60px] -z-10"></div>
+                <div class="absolute inset-0 bg-sky-500/30 blur-[80px] -z-10"></div>
             </div>
 
-            <div class="mt-[20px] md:mt-[380px] z-40 w-full flex justify-center">
+            <div class="mt-12 md:mt-[340px] z-40 w-full flex justify-center">
                 <a href="https://t.me/meaf4ik" target="_blank" 
-                   class="btn-shine flex items-center gap-4 bg-gradient-to-r from-rose-500 to-orange-500 px-10 py-5 rounded-2xl font-black text-xl hover:brightness-110 hover:scale-105 transition-all shadow-[0_15px_30px_rgba(244,63,94,0.4)] uppercase tracking-tight">
+                   class="btn-shine flex items-center gap-4 bg-gradient-to-r from-blue-600 to-sky-500 px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_rgba(37,99,235,0.3)] uppercase tracking-tight">
+                    <span>Написать мне</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM12.166 5.023a.403.403 0 0 0-.407.033L3.104 10.464a.267.267 0 0 0-.014.458l2.011 1.233a.269.269 0 0 0 .325-.017l5.762-4.155a.135.135 0 0 1 .188.188l-4.155 5.762a.269.269 0 0 0-.017.325l1.233 2.011a.267.267 0 0 0 .458-.014l5.441-8.655a.404.404 0 0 0-.126-.49z"/>
                     </svg>
-                    Связаться в Telegram
                 </a>
             </div>
         </div>
-
     </div>
 
 </body>
