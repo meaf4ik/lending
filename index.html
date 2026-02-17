@@ -6,10 +6,7 @@
     <title>Бахтияр | Портфолио</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { 
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
             margin: 0;
             min-height: 100vh;
@@ -21,56 +18,73 @@
             background-repeat: repeat;
             background-size: 1280px 720px;
             background-attachment: fixed;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* Чтобы фото плавно парило (эффект левитации) */
+        .levitation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         @media (max-width: 1024px) {
-            body {
-                overflow-y: auto;
-                height: auto;
-                padding: 40px 20px;
-            }
+            body { height: auto; padding: 100px 20px 40px; }
+            .levitation { animation: none; } /* Отключаем на мобилках для стабильности */
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 md:p-6 text-white"> <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 max-w-6xl w-full">
+<body class="text-white">
+
+    <div class="relative w-full max-w-5xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-[3rem] p-8 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center gap-10">
         
-        <div class="relative bg-white/10 backdrop-blur-lg border border-white/20 p-8 md:p-12 rounded-[2.5rem] shadow-2xl w-full md:w-1/2">
-            <div class="relative z-10">
-                <h1 class="text-5xl md:text-6xl font-extrabold mb-2 tracking-tighter text-white">
-                    Бахтияр
-                </h1>
-                <p class="text-sky-300 text-xl font-medium mb-6 uppercase tracking-widest">
-                    Frontend Developer
-                </p>
-
-                <p class="text-lg opacity-80 leading-relaxed max-w-md mb-8 text-white">
-                    Создаю современные сайты с акцентом на высокую скорость и "стеклянный" дизайн. Мой код такой же чистый, как этот интерфейс.
-                </p>
-
-                <div class="flex flex-wrap gap-2 mb-10">
-                    <span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full text-sm">HTML5</span>
-                    <span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full text-sm">CSS3</span>
-                    <span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                    <span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full text-sm">Tailwind</span>
-                    <span class="bg-white/10 border border-white/20 px-3 py-1 rounded-full text-sm">Git</span>
+        <div class="w-full md:w-1/2 z-10">
+            <h1 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-sky-300">
+                БАХТИЯР
+            </h1>
+            <p class="text-sky-400 text-2xl font-bold mb-8 uppercase tracking-[0.2em]">
+                Frontend Developer
+            </p>
+            
+            <div class="space-y-4 mb-10 opacity-90">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-[2px] bg-sky-500"></span>
+                    <p class="text-lg">Clean Code & Modern Design</p>
                 </div>
+                <p class="text-white/70 max-w-sm leading-relaxed">
+                    Специализируюсь на создании высокопроизводительных интерфейсов с эффектом погружения.
+                </p>
+            </div>
 
-                <a href="https://t.me/meaf4ik" target="_blank" 
-                   class="inline-flex items-center gap-3 bg-white text-blue-900 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-sky-100 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                    <span>Связаться в Telegram</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM12.166 5.023a.403.403 0 0 0-.407.033L3.104 10.464a.267.267 0 0 0-.014.458l2.011 1.233a.269.269 0 0 0 .325-.017l5.762-4.155a.135.135 0 0 1 .188.188l-4.155 5.762a.269.269 0 0 0-.017.325l1.233 2.011a.267.267 0 0 0 .458-.014l5.441-8.655a.404.404 0 0 0-.126-.49z"/>
-                    </svg>
-                </a>
+            <div class="grid grid-cols-2 gap-4 text-sm font-medium border-t border-white/10 pt-8">
+                <div><span class="text-sky-400">STACK:</span> HTML, CSS, JS</div>
+                <div><span class="text-sky-400">UI:</span> Tailwind, Glassmorphism</div>
+                <div><span class="text-sky-400">TOOLS:</span> Git, GitHub</div>
+                <div><span class="text-sky-400">DEV:</span> VS Code, Vite</div>
             </div>
         </div>
 
-        <div class="relative w-full md:w-1/2 flex justify-center">
-            <div class="w-full max-w-[400px] h-[500px] md:h-[600px] bg-white/15 backdrop-blur-lg rounded-[2.5rem] border border-white/25 shadow-2xl overflow-hidden relative">
-                <img src="assest/img/moyofoto.jpg" 
+        <div class="w-full md:w-1/2 relative flex flex-col items-center">
+            
+            <div class="relative z-30 md:absolute md:top-[-180px] w-[300px] md:w-[420px] levitation">
+                <img src="./assest/img/moyofoto.jpg" 
                      alt="Бахтияр" 
-                     class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
-                <div class="absolute inset-0 z-20 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>
+                     class="w-full rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.6)] border-4 border-white/20 rotate-[2deg] grayscale hover:grayscale-0 transition-all duration-500">
+                
+                <div class="absolute inset-0 bg-sky-500/20 blur-[60px] -z-10"></div>
+            </div>
+
+            <div class="mt-[20px] md:mt-[380px] z-40 w-full flex justify-center">
+                <a href="https://t.me/meaf4ik" target="_blank" 
+                   class="flex items-center gap-4 bg-gradient-to-r from-rose-500 to-orange-500 px-10 py-5 rounded-2xl font-black text-xl hover:brightness-110 hover:scale-105 transition-all shadow-[0_15px_30px_rgba(244,63,94,0.4)] uppercase tracking-tight">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM12.166 5.023a.403.403 0 0 0-.407.033L3.104 10.464a.267.267 0 0 0-.014.458l2.011 1.233a.269.269 0 0 0 .325-.017l5.762-4.155a.135.135 0 0 1 .188.188l-4.155 5.762a.269.269 0 0 0-.017.325l1.233 2.011a.267.267 0 0 0 .458-.014l5.441-8.655a.404.404 0 0 0-.126-.49z"/>
+                    </svg>
+                    Скачать резюме
+                </a>
             </div>
         </div>
 
