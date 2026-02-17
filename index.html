@@ -17,17 +17,21 @@
 .glare-container {
     position: absolute;
     inset: 0;
-    overflow: hidden;
+    overflow: hidden; /* Это обрежет углы блика по форме карточки */
     pointer-events: none;
     border-radius: inherit;
 }
         /* Сам блик */
 .glare {
     position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
-    transform: translate(0, 0); /* Будет меняться через JS */
+    /* Центрируем блик относительно контейнера */
+    top: 50%; 
+    left: 50%;
+    width: 150%; /* Немного уменьшим размер, чтобы он не "улетал" слишком далеко */
+    height: 150%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%);
+    /* Сдвигаем назад на половину размера, чтобы точка 0,0 была в центре */
+    transform: translate(-50%, -50%); 
     will-change: transform;
 }
     </style>
@@ -60,13 +64,17 @@
 const glares = document.querySelectorAll('.glare');
 
 document.addEventListener('mousemove', (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
+    const glareX = ((x / window.innerWidth) - 0.5) * 100;
+    const glareY = ((y / window.innerHeight) - 0.5) * 100;
 
-    const rotateX = (centerY - y) / 20; 
-    const rotateY = (x - centerX) / 20;
+    cards.forEach((card, index) => {
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        
+        if (glares[index]) {
+            // Двигаем блик относительно его центрального положения (-50%)
+            glares[index].style.transform = `translate(calc(-50% + ${glareX}px), calc(-50% + ${glareY}px))`;
+        }
+    });
 
     // Смещение блика (инвертируем, чтобы свет "играл" на углах)
     const glareX = (x - centerX) / 5;
