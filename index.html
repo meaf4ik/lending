@@ -6,49 +6,70 @@
     <title>Бахтияр | Портфолио</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @media (max-width: 768px) {
-    .tilt-card {
-        transform: none !important; /* Отключаем наклон на смартфонах */
-        transition: none !important;
-    }
-    .glare-container {
-        display: none; /* Блик на мобилках часто выглядит как лишнее пятно */
-    }
+        /* 1. Общие стили для всех устройств */
+* { 
+    transition: transform 0.1s ease-out, background 0.3s; 
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Убираем синее выделение при нажатии на мобилках */
+    -webkit-tap-highlight-color: transparent; 
+}
+
+/* 2. Стили только для ПК (ширина больше 1024px) */
+@media (min-width: 1025px) {
     body {
-        overflow-y: auto; /* Разрешаем скролл на телефонах */
-        height: auto;
-        padding-top: 50px;
-        padding-bottom: 50px;
+        overflow: hidden; /* На ПК страница не скроллится, карточки в центре */
     }
 }
-        /* Плавное возвращение блоков в исходное состояние */
-        .tilt-card {
-            transition: transform 0.1s ease-out;
-            will-change: transform;
-        }
-        /* Убираем стандартный скролл, чтобы не мешал магии */
-        body { overflow: hidden; }
-        /* Контейнер для эффекта блика */
+
+/* 3. Стили только для смартфонов и планшетов (ширина до 1024px) */
+@media (max-width: 1024px) {
+    body {
+        overflow-y: auto; /* Разрешаем скролл пальцем */
+        height: auto;
+        padding: 40px 20px;
+    }
+    
+    .tilt-card {
+        transform: none !important; /* Отключаем 3D наклон */
+        transition: none !important;
+    }
+    
+    .glare-container {
+        display: none; /* Прячем блики, так как нет мышки */
+    }
+}
+
+/* 4. Стили элементов (карточки и блики) */
+.tilt-card {
+    will-change: transform;
+}
+
 .glare-container {
     position: absolute;
     inset: 0;
-    overflow: hidden; /* Это обрежет углы блика по форме карточки */
+    overflow: hidden;
     pointer-events: none;
     border-radius: inherit;
+    z-index: 0;
 }
-        /* Сам блик */
+
 .glare {
     position: absolute;
-    /* Центрируем блик относительно контейнера */
-    top: 50%; 
+    top: 50%;
     left: 50%;
-    width: 150%; /* Немного уменьшим размер, чтобы он не "улетал" слишком далеко */
+    width: 150%;
     height: 150%;
     background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%);
-    /* Сдвигаем назад на половину размера, чтобы точка 0,0 была в центре */
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     will-change: transform;
-}
     </style>
 </head>
 <body class="bg-gradient-to-br from-[#003d80] via-[#005bb5] to-[#007aff] min-h-screen flex items-center justify-center p-4 md:p-6">
@@ -78,44 +99,47 @@
         const cards = document.querySelectorAll('.tilt-card');
 const glares = document.querySelectorAll('.glare');
 
-document.addEventListener('mousemove', (e) => {
-    if (window.innerWidth <= 768) return;
+const handleMove = (e) => {
+    // Если экран меньше 1024px (планшеты и мобилки), выходим из функции
+    if (window.innerWidth <= 1024) return;
 
     const x = e.clientX;
     const y = e.clientY;
-    const glareX = ((x / window.innerWidth) - 0.5) * 100;
-    const glareY = ((y / window.innerHeight) - 0.5) * 100;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    // Настройки чувствительности (20 - мягко, 10 - резко)
+    const rotateX = (centerY - y) / 25; 
+    const rotateY = (x - centerX) / 25;
+
+    const glareX = ((x / window.innerWidth) - 0.5) * 80;
+    const glareY = ((y / window.innerHeight) - 0.5) * 80;
 
     cards.forEach((card, index) => {
         card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         
         if (glares[index]) {
-            // Двигаем блик относительно его центрального положения (-50%)
             glares[index].style.transform = `translate(calc(-50% + ${glareX}px), calc(-50% + ${glareY}px))`;
         }
     });
+};
 
-    // Смещение блика (инвертируем, чтобы свет "играл" на углах)
-    const glareX = (x - centerX) / 5;
-    const glareY = (y - centerY) / 5;
-
-    cards.forEach((card, index) => {
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        
-        // Двигаем блик для каждой карточки
-        if (glares[index]) {
-            glares[index].style.transform = `translate(${glareX}px, ${glareY}px)`;
-        }
-    });
-});
-
-document.addEventListener('mouseleave', () => {
+const handleReset = () => {
     cards.forEach((card, index) => {
         card.style.transform = `rotateX(0deg) rotateY(0deg)`;
         if (glares[index]) {
-            glares[index].style.transform = `translate(0, 0)`;
+            glares[index].style.transform = `translate(-50%, -50%)`;
         }
     });
+};
+
+// Слушатели событий
+document.addEventListener('mousemove', handleMove);
+document.addEventListener('mouseleave', handleReset);
+
+// Обновляем состояние при изменении размера окна
+window.addEventListener('resize', () => {
+    if (window.innerWidth <= 1024) handleReset();
 });
         
     </script>
