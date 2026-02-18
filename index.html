@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бахтияр | Frontend Developer</title>
+    <title>Бахтияр | Frontend Разработчик | Создание сайтов Алматы</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * { box-sizing: border-box; }
@@ -103,10 +103,10 @@
                 mask-image: radial-gradient(circle at center, black, transparent 90%);">
     </div>
 
-    <div class="main-container reveal relative w-full max-w-5xl bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[3.5rem] p-8 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center gap-12">
+    <div class="main-container reveal relative w-full max-w-5xl bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[3.5rem] p-8 md:p-16 shadow-[0_50px_100px_rgba(0,0,0,0.5)] flex flex-col lg:flex-row items-center gap-12">
         
-        <div class="w-full md:w-1/2 z-10 reveal delay-1">
-            <h1 class="text-6xl md:text-8xl font-black mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-sky-400 md:-ml-8 relative z-10">
+        <div class="w-full md:w-1/2 z-20 reveal delay-1 flex flex-col items-center md:items-start">
+            <h1 class="text-5xl md:text-8xl font-black mb-4 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-sky-400 relative z-10 text-center md:text-left pr-4">
     БАХТИЯР
 </h1>
             <p class="text-sky-400 text-2xl font-bold mb-8 uppercase tracking-[0.3em]">
@@ -127,7 +127,7 @@
 
         <div class="w-full md:w-1/2 relative flex flex-col items-center reveal delay-2">
             
-            <div class="relative z-30 md:absolute md:top-[-220px] w-[280px] md:w-[440px] levitation">
+            <div class="relative z-30 lg:absolute lg:top-[-220px] w-[280px] md:w-[350px] lg:w-[440px] levitation mt-8 lg:mt-0">
                 <img src="./assest/img/moyofoto.webp" 
                      alt="Бахтияр" 
                      loading="eager"
@@ -138,10 +138,18 @@
 
             <div class="mt-12 md:mt-[340px] z-40 w-full flex justify-center">
                 <a href="https://t.me/meaf4ik" target="_blank" 
-                   class="btn-shine flex items-center gap-4 bg-gradient-to-r from-blue-600 to-sky-500 px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_rgba(37,99,235,0.3)] uppercase tracking-tight">
-                    <span>Написать мне</span>
-                    <img src="./assest/img/telegram.png" alt="TG" class="w-8 h-8 object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-                </a>
+   class="btn-shine flex items-center gap-4 bg-gradient-to-r from-blue-600 to-sky-500 px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_rgba(37,99,235,0.3)] uppercase tracking-tight group">
+    
+    <span>Написать мне</span>
+
+    <div class="relative flex items-center justify-center">
+        <div class="absolute inset-0 bg-white/50 blur-md rounded-full scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        
+        <img src="./assest/img/telegram.png" 
+             alt="TG" 
+             class="w-8 h-8 relative z-10 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+    </div>
+</a>
             </div>
         </div>
     </div>
